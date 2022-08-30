@@ -8,35 +8,35 @@ set tabstop=4
 set expandtab
 set shiftwidth=0
 
+syntax enable
 filetype plugin on
+filetype plugin indent on
+
+let g:airline_theme='minimalist'
+let g:airline_powerline_fonts = 1
 
 let g:python3_host_prog = '/opt/homebrew/bin/python3'
 
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "my_snippets"]
+
 lua << EOF
-local nightfox = require('nightfox')
-
-nightfox.setup({
-  fox = "nightfox", -- change the colorscheme to use nordfox
-	transparent = true,
-  styles = {
-    comments = "italic",
-    keywords = "bold",
-    functions = "italic,bold"
-  },
-  inverse = {
-    match_paren = true,
-  },
-	colors = {
-		fg_gutter = "#5D6899",
-		comment = "#6B7F99",
-	}
+require('nightfox').setup({
+  options = {
+    transparent = true,
+    styles = {
+      comments = "italic",
+      keywords = "bold",
+      types = "italic,bold",
+    }
+  }
 })
-
-nightfox.load()
 EOF
 
+colorscheme nightfox
 
-let g:UltiSnipsSnippetDirectories=["UltiSnips", "my_snippets"]
+lua << END
+require('lualine').setup()
+END
 
 lua << EOF
 vim.opt.list = true
